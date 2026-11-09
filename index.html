@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101a20" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E✦%3C/text%3E%3C/svg%3E" />
+  <title>Lanterns of Briar Glen — A Storytelling Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Lanterns of Briar Glen home"><span class="brand-mark">✦</span><span>STORY<span class="brand-soft">TABLE</span></span></a>
+      <div class="campaign-label"><span class="live-dot"></span><span id="campaign-status">A NEW CAMPAIGN</span></div>
+      <button class="icon-button" id="sound-toggle" aria-label="Toggle sound" title="Sound effects">♫<span class="sound-state">OFF</span></button>
+    </header>
+
+    <main id="setup-screen" class="setup-screen">
+      <div class="hero-intro">
+        <p class="eyebrow"><span class="eyebrow-line"></span> A collaborative fantasy adventure</p>
+        <h1>Every legend<br>begins <em>together.</em></h1>
+        <p class="intro-copy">The old beacon has gone dark. Beyond Briar Glen, something is moving through the mist. Gather your companions, make your choices, and let the dice tell the rest.</p>
+        <div class="intro-meta"><span>✦ &nbsp;A story for one or more</span><span>◈ &nbsp;About 15 minutes</span><span>⬡ &nbsp;No wrong answers</span></div>
+      </div>
+      <section class="creation-panel" aria-labelledby="choose-title">
+        <div class="section-heading"><div><p class="eyebrow">First, choose your point of view</p><h2 id="choose-title">Who steps into the tale?</h2></div><span class="step-count">01 <i>/ 02</i></span></div>
+        <div class="hero-choices" id="hero-choices"></div>
+        <div class="creation-footer"><div class="name-field"><label for="hero-name">YOUR NAME</label><input id="hero-name" maxlength="18" value="Rowan" /></div><button id="begin-button" class="primary-button" disabled>Begin the story <span>→</span></button></div>
+        <p class="save-note">Your campaign saves automatically on this device.</p>
+      </section>
+    </main>
+
+    <main id="game-screen" class="game-screen hidden">
+      <aside class="left-rail">
+        <div class="rail-title">YOUR PARTY <span id="party-count">01</span></div>
+        <div id="party-card" class="party-card"></div>
+        <div class="rail-divider"></div>
+        <div class="rail-title">CAMPAIGN <span>✦</span></div>
+        <div class="campaign-progress"><div class="progress-copy"><span id="chapter-label">CHAPTER 01</span><span id="progress-label">0 / 5</span></div><div class="progress-track"><span id="progress-fill"></span></div></div>
+        <div class="rail-chapter"><span class="chapter-icon">⌁</span><div><b>The Hollow Beacon</b><small id="chapter-subtitle">A light in the mist</small></div></div>
+        <div class="rail-divider"></div>
+        <div class="rail-title">PACK <span id="item-count">02</span></div>
+        <div id="inventory-list" class="inventory-list"></div>
+        <button id="reset-button" class="text-button">↺ &nbsp;Start a new story</button>
+      </aside>
+
+      <section class="story-column">
+        <div class="story-topline"><span id="scene-location">BRIAR GLEN · DUSK</span><span id="scene-number">SCENE 01</span></div>
+        <div id="story-art" class="story-art art-village"><div class="art-moon"></div><div class="art-mountain mountain-one"></div><div class="art-mountain mountain-two"></div><div class="art-pine pine-one">♠</div><div class="art-pine pine-two">♠</div><div class="art-pine pine-three">♠</div><div class="art-lantern">✦</div><div class="art-caption">THE NORTH ROAD</div></div>
+        <article class="story-card">
+          <div class="story-kicker"><span class="kicker-symbol">✳</span><span id="scene-kicker">THE CALL TO ADVENTURE</span></div>
+          <h2 id="scene-title">A Light Gone Missing</h2>
+          <div id="story-text" class="story-text"></div>
+          <div id="check-result" class="check-result hidden"></div>
+          <div class="choice-heading"><span>WHAT DO YOU DO?</span><span class="choice-hint">Choose your path</span></div>
+          <div id="choice-list" class="choice-list"></div>
+          <div id="ending-actions" class="ending-actions hidden"></div>
+        </article>
+        <footer class="story-footer"><span>✧ &nbsp;A story built by your choices</span><button id="journal-toggle" class="text-button">Open journal &nbsp;↗</button></footer>
+      </section>
+
+      <aside class="right-rail">
+        <div class="right-header"><div><p class="eyebrow">A living story</p><h3>Field notes</h3></div><span class="journal-icon">▤</span></div>
+        <div class="journal-tabs"><button class="tab active" data-tab="journal">JOURNAL <span id="journal-total">01</span></button><button class="tab" data-tab="companions">COMPANIONS</button></div>
+        <div id="journal-panel" class="notes-panel"></div>
+        <div id="companions-panel" class="notes-panel hidden"></div>
+        <div class="table-tip"><span class="tip-icon">✦</span><div><b>At the story table</b><p>There is no single right answer. Let your imagination lead, and the dice add a little surprise.</p></div></div>
+        <div class="dice-widget"><div class="dice-icon">D20</div><div><b>THE FATE DIE</b><small>Luck is never far away.</small></div><button id="roll-die" aria-label="Roll a d20" title="Roll a d20">↻</button></div>
+      </aside>
+    </main>
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <div id="modal-backdrop" class="modal-backdrop hidden"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button id="modal-close" class="modal-close" aria-label="Close">×</button><p class="eyebrow">A moment at the table</p><h2 id="modal-title"></h2><p id="modal-copy"></p><button id="modal-ok" class="primary-button">Let's go <span>→</span></button></div></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
